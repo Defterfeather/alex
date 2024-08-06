@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1{
+            font-size: 64px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <p style="display: inline;">website Visitor Name :</p>
+    <input placeholder="Nama" type="text"  id="inputNamaVisitor">
+    <button id="submitButton">submit</button>
+    <button id="clearButton">Clear local Storage</button>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div>
+        <h1>Selamat Datang</h1>
+        <h1 id="NamaUpdate"> </h1>
+    </div>
+    <!-- 
+        Local/session Storage Methods
+        .setItem(key, value)   -- menyimpan pasangan key/value
+        .getItem(key)          -- mengambil nilai menggunakan key
+        .removeItem(key)       -- mengahpus nilai berdasarkan key
+        .clear()               -- menghapus semua nilai di dalam localStorage
+        .length()              -- jumlah nilai dalam localStorage
+        .key(index)            -- mengambil key berdasarkan ururtan (index) dalam localStorage
+     -->
+
+     <!-- local/Session Storage
+        digunakan untuk :
+        - menyimpan referensi user
+        - setting konfigurasi user
+        
+        jangan digunakan untuk :
+        - menyimpan data yang sifatnya rahasia / pribadi / penting
+      -->
+
+      <script>
+        const inputNamaVisitor = document.getElementById("inputNamaVisitor")
+        const submitButton = document.getElementById("submitButton")
+        const clearButton = document.getElementById("clearButton")
+
+        const NamaUpdate = document.getElementById("NamaUpdate")
+
+        if(localStorage){
+            NamaUpdate.innerHTML= localStorage.getItem("namaVisitor")
+        }
+
+        //arrow function 
+        //syntax
+        //() => {kode yng akan di eksekusi}
+        let nama 
+        inputNamaVisitor.addEventListener("change", (event) => nama = event.target.value)
+        submitButton.addEventListener("click", () => {
+            
+            if(nama == "" || nama == undefined){
+                alert("salah,tolong diisi yang benar")
+            }else{
+                NamaUpdate.innerHTML= nama  
+
+                //.setItem(key, value)
+                // key : untuk mengambil nilai yang ada di dalam value
+                localStorage.setItem("namaVisitor", nama)
+            }
+
+        })
+
+        clearButton.addEventListener("click",() => {
+            localStorage.removeItem("namaVisitor")
+            NamaUpdate.innerHTML =""
+        })
+      </script>
+</body>
+</html>
